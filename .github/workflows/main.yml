@@ -10,20 +10,21 @@ jobs:
   # =========================
   # 🔐 1. SNYK SCAN
   # =========================
-  - name: Run Snyk (non-blocking)
-    run: |
-      snyk test --file=pom.xml || true
+  snyk-scan:
+    - name: Run Snyk (non-blocking)
+      run: |
+        snyk test --file=pom.xml || true
 
-  - name: Generate Snyk Report (safe)
-    run: |
-      echo '{"status":"completed","message":"Snyk executed in CI"}' > snyk-report.json
+    - name: Generate Snyk Report (safe)
+      run: |
+        echo '{"status":"completed","message":"Snyk executed in CI"}' > snyk-report.json
 
-  - name: Upload Snyk Report
-    uses: actions/upload-artifact@v4
-    with:
-      name: snyk-report
-      path: snyk-report.json
-      
+    - name: Upload Snyk Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: snyk-report
+        path: snyk-report.json
+        
   # =========================
   # 🧪 2. TEST + JACOCO
   # =========================
